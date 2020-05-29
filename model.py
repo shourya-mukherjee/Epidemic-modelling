@@ -22,7 +22,13 @@ class Population:
 class Graph(object):
 	def __init__(self, n, edge_prob):
 		self.n = n
-		self.graph = nx.fast_gnp_random_graph(n=n, p=edge_prob)
+
+		### makes sure the graph is connected
+		self.isconnected = False
+		while (not isconnected):
+			self.graph = nx.fast_gnp_random_graph(n=n, p=edge_prob)
+			isconnected = nx.is_connected(self.graph)
+
 		nx.set_node_attributes(self.graph, 0, 'state')
 
 		self.avg_deg_cen = self.avg_degree_centrality()
