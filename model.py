@@ -1,7 +1,8 @@
 import networkx as nx
+import matplotlib.pyplot as plt
 
 class Population:
-	def __init__(numvertices, numedges):
+	def __init__(self, numvertices, numedges):
 		self.adj_matrix
 
 	def simulate():
@@ -18,42 +19,37 @@ class Population:
 
 
 class Graph(object):
-	def __init__(numvertices, numedges):
-		self.numvertices = numvertices
-		self.graph = nx.gnp_random_graph(numvertices, numedges)
+	def __init__(self, n, edge_prob):
+		self.n = n
+		self.graph = nx.fast_gnp_random_graph(n=n, p=edge_prob)
+		self.avg_deg_cen = avg_degree_centrality()
 
-"""class Graph(object):
+	def rand_infect():
+		pass
 
-    def __init__(self, adj_matrix, numvertices):
-        self.numvertices = numvertices
-        self.graph_dict = {}
-        self.adj_matrix = adj_matrix
-        self.generate_edges()
+	def avg_degree_centrality():
+		"""
+		The degree centrality for a node v is the fraction of nodes it is connected to.
+		"""
+		return sum(nx.degree_centrality(self.graph).values())/self.n
 
-    def vertices(self):
+	def avg_communicability_centrality():
+		"""
+		Communicability centrality, also called subgraph centrality, of a node n is the sum of closed walks of all lengths starting and ending at node n.
+		"""
+		return sum(nx.communicability_centrality(self.graph).values())/self.n
 
-        return list(self.graph_dict.keys())
-      
-    def add_vertex(self, vertex):
-        if vertex not in self.graph_dict:
-            self.graph_dict[vertex] = Node(vertex)
 
-    def add_edge(self, vertex1, vertex2):
-        self.graph_dict[vertex1].add_neighbor(graph_dict[vertex2])
+def test():
+	G = Graph(50, 0.3543539)
+	print (nx.degree_centrality(G.graph))
+	print (sum(nx.degree_centrality(G.graph).values())/50)
 
-    def generate_edges():
-    	n = self.numvertices
-    	for i in range(n):
-    		for j in range(n):
-    			if adj_matrix[i][j]:
-    				self.add_edge(i, j)
 
-    def __str__(self):
-        res = "vertices: "
-        for k in self.graph_dict:
-            res += str(k) + " "
-        res += "\nedges: "
-        for edge in self.__generate_edges():
-            res += str(edge) + " "
-        return res
-"""
+	plt.subplot(121)
+	nx.draw(G.graph, with_labels=True, font_weight='bold')
+	plt.show()
+
+if __name__ == '__main__':
+	test()
+
