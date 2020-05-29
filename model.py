@@ -37,8 +37,10 @@ class Graph(object):
 		self.diameter = nx.diameter(self.graph)
 
 		self.infected_vertices = []
+		self.num_infected = 0
 		self.color_map = []
 		self.rand_infect()
+		self.frac_infect = self.frac_infected()
 
 	def rand_infect(self):
 		for i in range(self.n):
@@ -46,6 +48,7 @@ class Graph(object):
 			if flip:
 				self.graph.nodes[i]['state'] = 1
 				self.infected_vertices.append(i)
+				self.num_infected+=1
 				self.color_map.append('red')
 			else:
 				self.color_map.append('green')
@@ -67,6 +70,9 @@ class Graph(object):
 		The eccentricity of a node v is the maximum distance from v to all other nodes in G.
 		"""
 		return sum(nx.eccentricity(self.graph).values())/self.n
+
+	def frac_infected(self):
+		return self.num_infected/self.n
 
 	def node_state(self, node):
 		state = self.graph.nodes[node]['state']
