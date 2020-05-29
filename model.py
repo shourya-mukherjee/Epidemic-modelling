@@ -12,13 +12,6 @@ class Population:
 	def simulate_day():
 		pass
 
-	def regularness():
-		pass
-
-	def frac_infected():
-		pass
-
-
 class Graph(object):
 	def __init__(self, n, edge_prob):
 		self.n = n
